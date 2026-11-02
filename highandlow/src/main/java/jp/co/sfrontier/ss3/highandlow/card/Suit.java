@@ -14,6 +14,25 @@ public enum Suit {
     Suit(String displayName) {
         this.displayName = displayName;
     }
+    
+    /**
+     * 表示名に対応するスートを取得する。
+     *
+     * @param displayName スートの表示名
+     * @return 表示名に対応するスート
+     * @throws IllegalArgumentException 対応するスートが存在しない場合
+     */
+    public static Suit fromDisplayName(String displayName) {
+
+        for (Suit suit : values()) {
+            if (suit.displayName.equals(displayName)) {
+                return suit;
+            }
+        }
+
+        throw new IllegalArgumentException(
+                "存在しないスートです: " + displayName);
+    }
 
     @Override
     public String toString() {

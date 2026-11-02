@@ -14,7 +14,7 @@ public class GameResultRecorderFactory {
 	/** 出力先フォルダー名 */
 	private static final String RESULT_DIRECTORY = "result";
 
-	/** 対戦日時。ファイル名に仕様する */
+	/** 対戦日時のフォーマット。フォルダー名に使用 */
 	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
 
 	/**
@@ -27,7 +27,7 @@ public class GameResultRecorderFactory {
 
 		Path resultDirectory = Path.of(RESULT_DIRECTORY);
 
-		//フォルダがなければ作成してくれる。存在していても例外は出ない。
+		//フォルダーがなければ作成してくれる。フォルダーがすでに存在していても例外は出ないらしい。
 		Files.createDirectories(resultDirectory);
 
 		String dateTime = LocalDateTime.now().format(FORMATTER);

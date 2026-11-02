@@ -3,7 +3,7 @@ package jp.co.sfrontier.ss3.highandlow.game;
 import jp.co.sfrontier.ss3.highandlow.card.Card;
 
 /**
- * 
+ * 各種判定を行うクラス
  */
 public class Judge {
 	
@@ -36,7 +36,7 @@ public class Judge {
      * @param actualResult
      * @return
      */
-    public boolean judge(Comparison prediction, Comparison actualResult) {
+    public boolean predict(Comparison prediction, Comparison actualResult) {
         return prediction == actualResult;
     }
     

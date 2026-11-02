@@ -4,7 +4,7 @@ import java.io.IOException;
 
 /**
  * 対戦結果の記録を行うためのインターフェース<br>
- * 記録方法や内容を実装側で決める。
+ * 記録方法と記録内容を実装側で決める。
  */
 public interface GameResultRecorder {
 	
@@ -14,4 +14,5 @@ public interface GameResultRecorder {
 	 * @throws IOException 
 	 */
 	void record(GameResult result) throws IOException;
+	
 }

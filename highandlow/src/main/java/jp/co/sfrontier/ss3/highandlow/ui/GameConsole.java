@@ -1,15 +1,18 @@
 package jp.co.sfrontier.ss3.highandlow.ui;
 
+import java.util.List;
 import java.util.Scanner;
 
 import jp.co.sfrontier.ss3.highandlow.card.Card;
 import jp.co.sfrontier.ss3.highandlow.game.Comparison;
+import jp.co.sfrontier.ss3.highandlow.record.GameResult;
+import jp.co.sfrontier.ss3.highandlow.record.MonthlyGameResult;
 
 /**
  * ゲーム全体の入出力操作をもつクラス
  */
 public class GameConsole {
-	
+
 	private final Scanner scanner;
 
 	/**
@@ -50,7 +53,7 @@ public class GameConsole {
 		System.out.println("        それではゲームスタート！");
 		System.out.println("========================================");
 	}
-	
+
 	/**
 	 * プレイヤーから予想の入力を1～3で受け取る
 	 * @return　
@@ -101,7 +104,7 @@ public class GameConsole {
 			}
 		}
 	}
-	
+
 	/**
 	 * 「card + " が出ました！"」と出力する
 	 * @param card Card
@@ -183,5 +186,52 @@ public class GameConsole {
 		System.out.println("========================================");
 		System.out.println("        NEW GAME START！");
 		System.out.println("========================================");
+	}
+
+	/**
+	 * 過去10回の対戦結果を表示する。
+	 * @param results
+	 */
+	public void showRecentResults(List<GameResult> results) {
+
+		System.out.println();
+		System.out.println("===== 過去10回の対戦成績 =====");
+
+		for (GameResult result : results) {
+			System.out.println(
+					result.getPlayedAt()
+							+ " "
+							+ (result.isWin() ? "勝ち" : "負け"));
+		}
+	}
+	
+	/**
+	 * 月別成績を表示する。
+	 *
+	 * @param monthlyResults 月別成績
+	 */
+	public void showMonthlyResults(List<MonthlyGameResult> monthlyResults) {
+
+	    System.out.println();
+	    System.out.println("===== 月別成績 =====");
+
+	    for (MonthlyGameResult result : monthlyResults) {
+	    	//printf で、小数点1桁まで表示する
+	        System.out.printf(
+	                "%s：%d戦 / 勝率 %.1f%%%n",
+	                result.getMonth(),
+	                result.getTotalCount(),
+	                result.getWinRate());
+	    }
+	}
+	
+	/**
+	 * 最多連勝記録を表示する。
+	 *
+	 * @param maxStreak 最多連勝数
+	 */
+	public void showMaxWinningStreak(int maxStreak) {
+		System.out.println();
+	    System.out.println("最多連勝記録：" + maxStreak + "連勝");
 	}
 }

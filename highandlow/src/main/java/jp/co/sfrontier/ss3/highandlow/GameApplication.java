@@ -1,14 +1,21 @@
 package jp.co.sfrontier.ss3.highandlow;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.util.List;
 import java.util.Scanner;
 
 import jp.co.sfrontier.ss3.highandlow.card.Deck;
 import jp.co.sfrontier.ss3.highandlow.exception.DeckEmptyException;
 import jp.co.sfrontier.ss3.highandlow.game.Game;
 import jp.co.sfrontier.ss3.highandlow.game.Judge;
+import jp.co.sfrontier.ss3.highandlow.record.FileGameResultReader;
+import jp.co.sfrontier.ss3.highandlow.record.GameResult;
+import jp.co.sfrontier.ss3.highandlow.record.GameResultAnalyzer;
+import jp.co.sfrontier.ss3.highandlow.record.GameResultReader;
 import jp.co.sfrontier.ss3.highandlow.record.GameResultRecorder;
 import jp.co.sfrontier.ss3.highandlow.record.GameResultRecorderFactory;
+import jp.co.sfrontier.ss3.highandlow.record.MonthlyGameResult;
 import jp.co.sfrontier.ss3.highandlow.ui.GameConsole;
 
 /**
@@ -31,7 +38,6 @@ public class GameApplication {
 			while (true) {
 				//再戦するたびに実施する処理
 
-				//山札作成
 				Deck deck = new Deck();
 
 				//新しい日時付きresultファイル
@@ -49,6 +55,32 @@ public class GameApplication {
 				gameConsole.showNewGameMessage();
 			}
 
+			//過去10回を表示する処理
+			Path resultDirectory = Path.of("result");
+
+			GameResultReader reader =
+			        new FileGameResultReader(resultDirectory);
+
+			List<GameResult> results = reader.read();
+
+			GameResultAnalyzer analyzer =
+			        new GameResultAnalyzer(results);
+
+			List<GameResult> recentResults =
+			        analyzer.getRecentResults(10);
+
+			gameConsole.showRecentResults(recentResults);
+			
+			//月ごとの対戦勝率を表示
+			List<MonthlyGameResult> monthlyResults =
+			        analyzer.getMonthlyResults();
+
+			gameConsole.showMonthlyResults(monthlyResults);
+			
+			int maxWinningStreak = analyzer.getMaxWinningStreak();
+			
+			gameConsole.showMaxWinningStreak(maxWinningStreak);
+			
 		} catch (DeckEmptyException e) {
 			System.out.println("山札からカードを引けませんでした。");
 			e.printStackTrace();
