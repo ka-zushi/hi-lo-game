@@ -1,5 +1,7 @@
 package jp.co.sfrontier.ss3.highandlow.record;
 
+import java.time.LocalDateTime;
+
 import jp.co.sfrontier.ss3.highandlow.card.Card;
 import jp.co.sfrontier.ss3.highandlow.game.Comparison;
 
@@ -13,19 +15,22 @@ public class GameResult {
 	private final Comparison prediction;
 	private final Comparison actualResult;
 	private final boolean win;
+	private final LocalDateTime playedAt;
 
 	public GameResult(
 			Card parentCard,
 			Card childCard,
 			Comparison prediction,
 			Comparison actualResult,
-			boolean win) {
+			boolean win,
+			LocalDateTime playedAt) {
 
 		this.parentCard = parentCard;
 		this.childCard = childCard;
 		this.prediction = prediction;
 		this.actualResult = actualResult;
 		this.win = win;
+		this.playedAt = playedAt;
 	}
 
 	public Card getParentCard() {
@@ -47,5 +52,9 @@ public class GameResult {
 	public boolean isWin() {
 		return win;
 	}
-	
+
+	public LocalDateTime getPlayedAt() {
+		return playedAt;
+	}
+
 }

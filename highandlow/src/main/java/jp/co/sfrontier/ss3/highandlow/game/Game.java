@@ -1,6 +1,7 @@
 package jp.co.sfrontier.ss3.highandlow.game;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import jp.co.sfrontier.ss3.highandlow.card.Card;
 import jp.co.sfrontier.ss3.highandlow.card.Deck;
@@ -74,7 +75,7 @@ public class Game {
 			Comparison actualResult = judge.compare(parentCard, childCard);
 
 			// ユーザーの予想が当たったか判定
-			boolean isWin = judge.judge(prediction, actualResult);
+			boolean isWin = judge.predict(prediction, actualResult);
 
 			// 勝敗表示
 			gameConsole.showResult(isWin);
@@ -85,13 +86,13 @@ public class Game {
 					childCard,
 					prediction,
 					actualResult,
-					isWin);
+					isWin,
+					LocalDateTime.now());
 
 			recorder.record(result);
 
 			if (isWin) {
-				// 子が勝った
-				// 今回の子カードを、次回の親カードにする
+				// 子が勝ったら、今回の子カードを、次回の親カードにしてゲームを続行
 				parentCard = childCard;
 
 				gameConsole.showNextRoundMessage();

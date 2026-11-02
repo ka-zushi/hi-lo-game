@@ -34,7 +34,7 @@ public class Card implements Comparable<Card> {
      * カードのランクを比較する。
      *
      * @param other 比較対象のカード
-     * @return ディーラーと比べて小さい場合は負の値、等しい場合は0、大きい場合は正の値
+     * @return 親のカードと比べて、子のカードが小さい場合は負の値、等しい場合は0、大きい場合は正の値
      */
 	@Override
 	public int compareTo(Card other) {
